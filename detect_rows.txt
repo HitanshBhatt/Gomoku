@@ -1,0 +1,42 @@
+def detect_rows(board, col, length):
+    ####CHANGE ME
+    open_seq_count, semi_open_seq_count = 0, 0
+
+    # d_y = 0, d_x = 1
+    for rows in range(len(board)):
+        num_tuples = detect_row(board, col, rows, 0, length, 0, 1)
+        open_seq_count += num_tuples[0]
+        semi_open_seq_count += num_tuples[1]
+    
+    #d_y = 1, d_x = 0
+    for columns in range(len(board)):
+            num_tuples = detect_row(board, col, 0, columns, length, 1, 0)
+            open_seq_count += num_tuples[0]
+            semi_open_seq_count += num_tuples[1]
+    
+    #d_x == 1, d_y == 1
+    for diagonals_y in range(len(board)):
+        num_tuples = detect_row(board, col, diagonals_y, 0 , length, 1, 1)
+        open_seq_count += num_tuples[0]
+        semi_open_seq_count += num_tuples[1]
+
+    for diagonals_x in range(len(board)):
+        num_tuples = detect_row(board, col, 0, diagonals_x , length, 1, 1)
+        open_seq_count += num_tuples[0]
+        semi_open_seq_count += num_tuples[1]
+    
+    #d_x = -1, d_y = 1
+    for diagonals_y in range(len(board)):
+        num_tuples = detect_row(board, col, diagonals_y, 0, length, 1, -1)
+        open_seq_count += num_tuples[0]
+        semi_open_seq_count += num_tuples[1]
+
+    for diagonals_x in range(len(board), 0, -1):
+        num_tuples = detect_row(board, col, 0, diagonals_x , length, 1, 1)
+        open_seq_count += num_tuples[0]
+        semi_open_seq_count += num_tuples[1]
+    #upacking the tuple
+    #open_seq_count, semi_open_seq_count = num_tuples
+
+    #print(num_tuples)
+    return open_seq_count, semi_open_seq_count
